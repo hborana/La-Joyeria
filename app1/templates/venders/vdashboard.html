@@ -1,0 +1,27 @@
+<h3>welcome : {{ vdata.d_name }}</h3>
+
+<a href="{% url 'venderlogout' %}">Logout</a>
+
+<br>
+<br>
+<a href="{% url 'AddNewJewellery' %}">Add </a>
+<br>
+<h2>Jewelleries</h2>
+{% for i in jewel %}
+    category = {{ i.category_name}}<br>
+    name = {{ i.j_name }}<br>
+    type = {{ i.j_type }}<br>
+    code = {{ i.j_code }}<br>
+    detail = {{ i.j_description }}<br>
+    price = {{ i.j_price }}<br>
+    image = 
+    <img src="{{ i.j_picture.url }}" width="200px">
+    <br>
+    <br>
+    <a href="{% url 'Update_Jewellery' i.id %}">Update</a>
+    <a href="{% url 'Delete_Jewellery' i.id %}">Delete</a>
+    <hr>
+{% endfor %}
+
+
+

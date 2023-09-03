@@ -1,0 +1,129 @@
+<html>
+<head> 
+<title>Dealer</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // Countries
+        var country_arr = new Array("Select Country","AUSTRALIA","INDIA","NEW ZEALAND","USA","UAE","MAURITIUS");
+
+        $.each(country_arr, function (i, item) {
+            $('#country').append($('<option>', {
+                value: i,
+                text : item,
+            }, '</option>' ));
+        });
+
+        // States
+        var s_a = new Array();
+        s_a[0]="Select State";
+        s_a[1]="Select State|QUEENSLAND|VICTORIA";
+        s_a[2]="Select State|ANDHRAPRADESH|KARNATAKA|TAMILNADU|DELHI|GOA|W-BENGAL|GUJARAT|MADHYAPRADESH|MAHARASHTRA|RAJASTHAN";
+        s_a[3]="Select State|AUCKLAND";
+        s_a[4]="Select State|NEWJERSEY|ILLINOIS";
+        s_a[5]="Select State|DUBAI";
+        s_a[6]="Select State|MAURITIUS";
+
+        // Cities
+        var c_a = new Array();
+        c_a['QUEENSLAND']="BRISBANE";
+        c_a['VICTORIA']="MELBOURNE";
+        c_a['ANDHRAPRADESH']="HYDERABAD";
+        c_a['KARNATAKA']="BANGLORE";
+        c_a['TAMILNADU']="CHENNAI";
+        c_a['DELHI']="DELHI";
+        c_a['GOA']="GOA";
+        c_a['W-BENGAL']="KOLKATA";
+        c_a['GUJARAT']="AHMEDABAD|BARODA|BHAVNAGAR|MEHSANA|RAJKOT|SURAT|UNA";
+        c_a['MADHYAPRADESH']="INDORE";
+        c_a['MAHARASHTRA']="MUMBAI|PUNE";
+        c_a['RAJASTHAN']="ABU";
+        c_a['AUCKLAND']="AUCKLAND";
+        c_a['NEWJERSEY']="EDISON";
+        c_a['ILLINOIS']="CHICAGO";
+        c_a['MAURITIUS']="MAURITIUS";
+        c_a['DUBAI']="DUBAI";
+
+
+        $('#country').change(function(){
+            var c = $(this).val();
+            var state_arr = s_a[c].split("|");
+            $('#state').empty();
+            $('#city').empty();
+            if(c==0){
+                $('#state').append($('<option>', {
+                    value: '0',
+                    text: 'Select State',
+                }, '</option>'));
+            }else {
+                $.each(state_arr, function (i, item_state) {
+                    $('#state').append($('<option>', {
+                        value: item_state,
+                        text: item_state,
+                    }, '</option>'));
+                });
+            }
+            $('#city').append($('<option>', {
+                value: '0',
+                text: 'Select City',
+            }, '</option>'));
+        });
+
+        $('#state').change(function(){
+            var s = $(this).val();
+            if(s=='Select State'){
+                $('#city').empty();
+                $('#city').append($('<option>', {
+                    value: '0',
+                    text: 'Select City',
+                }, '</option>'));
+            }
+            var city_arr = c_a[s].split("|");
+            $('#city').empty();
+
+            $.each(city_arr, function (j, item_city) {
+                $('#city').append($('<option>', {
+                    value: item_city,
+                    text: item_city,
+                }, '</option>'));
+            });
+
+
+        });
+    });
+</script>
+</head>
+<body>
+<h2>Dealer Registration</h2>
+    <form method="POST">
+        {% csrf_token %}    
+        <input type="text" name="d_name" placeholder="Enter Your Name"><br>
+        <select name="d_gender">
+            <option value="-">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br>
+        <input type="email" name="d_email" placeholder="Enter Your Email Id"><br>
+        <input type="date" name="d_dob" placeholder="Enter Your Date Of Birth"><br>
+        <input type="tel" name="d_contact" placeholder="Enter Your Contact No"><br>
+        <label>Enter Your Address:</label><br>
+        <textarea name="d_address"></textarea><br>
+        <input type="text" name="d_aadharno" pattern="^\d{4}\s\d{4}\s\d{4}$" title="Addhar Card" placeholder="Enter Your Aadhar Card No."><br>
+        <input type="text" name="d_shopName" placeholder="Enter Your Shop Name"><br>
+        <input type="email" name="d_shopEmail" placeholder="Enter Shop Email Id"><br>
+        <label>Enter Your Shop Address:</label><br>
+        <textarea name="d_shopAddress"></textarea><br>
+        <input type="tel" name="d_shopContact" placeholder="Enter Shop Contact No"><br>
+        <select name="d_country" id="country"></select> <br>
+        <select name="d_state" id="state"></select> <br>
+        <select name="d_city" id="city"></select><br>
+        <input type="number" name="d_pincode" placeholder="Enter Your Pincode"><br>
+        <br>
+        <br>
+        <br>
+        <input type="submit" value="Register">
+    </form>
+
+</body>
+</html>

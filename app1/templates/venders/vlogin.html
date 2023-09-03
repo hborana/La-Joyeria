@@ -1,0 +1,8 @@
+<form method="POST">
+    {% csrf_token %}
+    <input type="email" name="d_email" placeholder="Enter Your Email Id"><br>
+    <input type="text" name="d_aadharno" pattern="^\d{4}\s\d{4}\s\d{4}$" title="Addhar Card" placeholder="Enter Your Aadhar Card No."><br>
+    <br>
+    <br>
+    <input type="submit" value="login">
+</form>

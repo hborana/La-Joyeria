@@ -1,0 +1,39 @@
+<h3>welcome : {{ vdata.d_name }}</h3>
+
+
+{% if data %}
+<h2>Update Jewellery</h2>
+{% else %}
+<h2>Add Jewellery</h2>
+{% endif %}
+    
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <select name="category_name">
+        {% for i in catin %}
+            <option value="{{ i.id }}" {% if data.category_name == i %} selected {% endif %}>{{ i.category_name }}</option>
+        {% endfor %}
+    </select>
+    <input type="text" name="j_name" value="{{ data.j_name}}" placeholder="Name"><br>
+    <input type="text" name="j_type" value="{{ data.j_type}}" placeholder="Type"><br>
+    <input type="text" name="j_code" value="{{ data.j_code}}" placeholder="Code"><br>
+    <label>Description</label>
+    <textarea name="j_description">{{ data.j_description}}</textarea><br>
+    <input type="number" name="j_price" value="{{ data.j_price}}" placeholder="Price"><br>
+    
+    {% if data %}
+        <img src="{{ data.j_picture.url }}" width="200px">
+    {% endif %}
+    <input type="file" name="j_picture" accept="image/x-png,image/gif,image/jpeg"><br>
+    <br>
+    <br>
+    <br>
+    
+    {% if data %}
+    <input type="submit" value="Update">
+    {% else %}
+    <input type="submit" value="Add">
+    {% endif %}
+</form>
+
